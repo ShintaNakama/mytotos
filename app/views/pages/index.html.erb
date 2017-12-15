@@ -1,2 +1,39 @@
 <h1>My totos</h1>
+<p>ようこそ！<%= current_user.username %>さん</p>
 <p>トップ</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<h1>チャンピオンズリーグの試合結果</h1>
+    <p>直近10試合の結果</p>
+    <div class="matchresults-end">
+<script>
+    $(function(){
+        $.ajaxSetup({
+            headers : {"X-Auth-Token" : "795b97a04cda41f8b6bb0686792fd5ad"}
+        });
+        $.getJSON(
+            "http://api.football-data.org/v1/competitions/464/fixtures", function(json) {
+            //JSON所得後の処理
+            var finished = $.grep(json.fixtures, function(item, index){
+  　　　　　　    return item.status == "FINISHED";
+            });
+            finished = finished.reverse();
+            for(var i=0;i<10;i++){
+            var date = new Date(finished[i].date);
+            var options = {
+                timeZone : "Asia/Tokyo",
+                year : "numeric",
+                month : "short",
+                day : "numeric",
+                weekday : "long"
+            };
+            date = date.toLocaleDateString("ja-JP", options);
+            $(".matchresults-end").before(
+                '<div style="margin-top:8px">' + date + '</div><table border="1" style="width:500px;table-layout:fixed"><tbody><tr><td style="text-align:center">' +
+                finished[i].homeTeamName + '</td><td style="text-align:center">' + finished[i].awayTeamName + '</td></tr><tr><td colspan="2" style="text-align:center">' +
+                finished[i].result.goalsHomeTeam + ' - ' + finished[i].result.goalsAwayTeam + '</td></tr></tbody></table>'
+            );
+            }
+            }
+        );
+    });
+</script>
