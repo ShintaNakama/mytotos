@@ -1,0 +1,2 @@
+class ForecastPoint < ApplicationRecord
+end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  forecast_result: MyString
+  forecast_home_goals: 1
+  forecast_away_goals: 1
+
+two:
+  user_id: 1
+  forecast_result: MyString
+  forecast_home_goals: 1
+  forecast_away_goals: 1

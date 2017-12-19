@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  point: 1
+  forecast_point_id: 1
+  result_point_id: MyString
+
+two:
+  user_id: 1
+  point: 1
+  forecast_point_id: 1
+  result_point_id: MyString
