@@ -10,6 +10,7 @@ require 'net/http'
 require 'json'
 require 'uri'
 
+# CLの試合リスト、スコア
 uri = URI.parse('http://api.football-data.org/v1/competitions/464/fixtures')
 req = Net::HTTP::Get.new(uri.request_uri)
 req["X-Auth-Token"] = "795b97a04cda41f8b6bb0686792fd5ad"
@@ -21,5 +22,13 @@ http.request(req)}
 json = ActiveSupport::JSON.decode(res.body)
 
 json["fixtures"].each do |data|
-    Game.create(:date => data['date'], :status => data['status'], :matchday => data['matchday'], :home_team_name => data['homeTeamName'], :away_team_name => data['awayTeamName'], :goals_home_team => data['result']['goalsHomeTeam'], :goals_away_team => data['result']['goalsAwayTeam'])
+    if data['result']['goalsHomeTeam'].to_i > data['result']['goalsAwayTeam'].to_i 
+        game_result = "win"
+    elsif data['result']['goalsHomeTeam'].to_i < data['result']['goalsAwayTeam'].to_i
+        game_result = "lose"
+    else 
+        game_result = "draw"
+    end
+    
+    Game.create(:date => data['date'], :status => data['status'], :matchday => data['matchday'], :home_team_name => data['homeTeamName'], :away_team_name => data['awayTeamName'], :goals_home_team => data['result']['goalsHomeTeam'], :goals_away_team => data['result']['goalsAwayTeam'], :game_result => game_result)
 end

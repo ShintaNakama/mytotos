@@ -14,7 +14,9 @@
     <header>
             <nav>
                 <% if user_signed_in? %>
-                <strong><%= link_to current_user.username, root_path %></strong>
+                <%= current_user.username %>さんの現在のポイントは<%= @current_user_point %>ポイントです。
+                <%= link_to 'CL試合一覧', "/pages/show" %>
+                <%= link_to 'BET info', "/forecasts/compare" %>
                 <%= link_to 'プロフィール変更', edit_user_registration_path %>
                 <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
             <% else %>

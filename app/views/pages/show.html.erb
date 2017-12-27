@@ -3,13 +3,11 @@
 <p>トップ</p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <h1>チャンピオンズリーグの試合結果</h1>
-    <p>これからの試合予定</p>
-<% @games.each do |game| %>    
+    <p>試合リスト</p>
+<% @games.each do |game| %>
+<%= game.date%>
 <div class="list-group">
-  <a href="#" class="list-group-item">
-    <h4 class="list-group-item-heading"><%= game.home_team_name %> (H) VS <%= game.away_team_name %> (A)</h4>
-    <p class="list-group-item-text">...</p>
-  </a>
+  <%= link_to(game.home_team_name + " (H) VS " + game.away_team_name + "(A)", "/forecasts/show/#{game.id}", class: "list-group-item") %>
 </div>
 <% end %>
 <!--

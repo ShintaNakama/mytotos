@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218092641) do
+ActiveRecord::Schema.define(version: 20171222095236) do
 
   create_table "forecast_points", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "point"
+    t.integer "forecast_point"
     t.integer "forecast_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20171218092641) do
     t.integer "forecast_away_goals"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "game_id"
   end
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171218092641) do
     t.integer "goals_away_team"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "game_result"
   end
 
   create_table "points", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
