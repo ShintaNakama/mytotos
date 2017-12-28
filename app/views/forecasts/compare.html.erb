@@ -1,0 +1,44 @@
+<h1>BET List</h1>
+
+<% @forecast_data.each do |forecast_game| %>
+    <div class="list-group">
+        <div class="list-group-item">
+            <%= forecast_game.game.date %><br>
+            <%= forecast_game.game.home_team_name %> VS <%= forecast_game.game.away_team_name %><br>
+            予想 HomeTeamScore: <%= forecast_game.forecast_home_goals %>
+            AwayTeamScore: <%= forecast_game.forecast_away_goals %><br>
+            <% if forecast_game.game.status == "FINISHED" %>
+                 試合結果：HomeTeamScore: <%= forecast_game.game.goals_home_team %>
+                 AwayTeamScore: <%= forecast_game.game.goals_away_team %>
+                <% if forecast_game.forecast_home_goals == forecast_game.game.goals_home_team && forecast_game.forecast_away_goals == forecast_game.game.goals_away_team%>
+                    <P>Congrats!! Hit Score!!</p>
+                    <%= form_tag("/points/dividend") do %>
+                        <input type="hidden" name="forecast_id" value=<%= forecast_game.id%>>
+                        <input type="hidden" name="dividend" value="hit_score">
+                        <% if @current_point_data[forecast_game.id] <= 1 %>
+                                <button type='submit' name="button">配当ポイントを確定</button>
+                        <% end %>
+                    <% end %>
+                <% elsif forecast_game.forecast_result == forecast_game.game.game_result %>
+                    <P>Hit Result!</P>
+                    <%= form_tag("/points/dividend") do %>
+                         <input type="hidden" name="forecast_id" value=<%= forecast_game.id%>>
+                         <input type="hidden" name="dividend" value="hit_result">
+                        <% if @current_point_data[forecast_game.id] <= 1 %>
+                                <button type='submit' name="button">配当ポイントを確定</button>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <p>So Bad</p>
+                    <%= form_tag("/points/dividend") do %>
+                        <input type="hidden" name="forecast_id" value=<%= forecast_game.id%>>
+                        <input type="hidden" name="dividend" value="bad">
+                        <% if @current_point_data[forecast_game.id] <= 1 %>
+                                <button type='submit' name="button">配当ポイントを確定</button>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+<% end %> 

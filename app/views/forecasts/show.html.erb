@@ -1,0 +1,31 @@
+<h1>試合詳細</h1>
+<h4><%= @game.date%>
+<h4><%= @game.home_team_name %> (H) VS <%= @game.away_team_name %> (A)</h4>
+<%= form_tag("/forecasts/input") do %>
+    <input type="hidden" name="game_id" value=<%= @game.id %>>
+<div class="home_team_score">
+    <p>HOME-TEAM SCORE</p>
+    <input type="number" name="goals_home_team" required max="9" min="0">
+</div>
+<div class="home_away_score">
+    <p>AWAY-TEAM SCORE</p>
+    <input type="number" name="goals_away_team" required max="9" min="0">
+</div>
+<div class="bet_point">
+    <P>BET POINT?</p>
+    <select class="point" name="bet_point" required>
+        
+        <option value=100>100</option>
+        <option value=200>200</option>
+        <option value=300>300</option>
+        <option value=400>400</option>
+        <option value=500>500</option>
+        <option value=600>600</option>
+        <option value=700>700</option>
+        <option value=800>800</option>
+        <option value=900>900</option>
+        <option value=1000>1000</option>
+    </select>
+</div>
+<button type='submit' name="bet">BET</button>
+<% end %>
